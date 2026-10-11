@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: khoj
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: KHOJ_LLM_MODE
+        value: "off"

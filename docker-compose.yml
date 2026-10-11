@@ -1,0 +1,18 @@
+# Local, fully offline stack: Khoj + Ollama.
+#   docker compose up -d
+#   docker compose exec ollama ollama pull gemma3:4b
+services:
+  ollama:
+    image: ollama/ollama
+    volumes: ["ollama:/root/.ollama"]
+    ports: ["11434:11434"]
+  khoj:
+    build: .
+    environment:
+      KHOJ_LLM_MODE: ollama
+      OLLAMA_HOST: http://ollama:11434
+      KHOJ_MODEL: gemma3:4b
+    ports: ["8000:8000"]
+    depends_on: [ollama]
+volumes:
+  ollama:

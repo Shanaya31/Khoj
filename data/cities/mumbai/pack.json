@@ -1,0 +1,9 @@
+{
+  "city": "mumbai",
+  "display_name": "Mumbai",
+  "country": "India",
+  "version": "0.1.0",
+  "areas": ["Fort", "Kala Ghoda", "Colaba", "Marine Drive", "Masjid Bunder", "Mahalaxmi", "Malabar Hill", "Ballard Estate", "Mahim", "Bandra"],
+  "description": "Seed pack for south and central Mumbai. Facts are short and need source checking before release (see CONTRIBUTING.md).",
+  "coords_approximate": true
+}

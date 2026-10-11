@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-wall text-ink font-display antialiased;
+}
+button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid theme("colors.taxi");
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

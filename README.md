@@ -92,3 +92,124 @@ Clone the repository:
 ```bash
 git clone https://github.com/Shanaya31/Khoj.git
 cd Khoj
+
+Install dependencies:
+
+```bash
+make setup
+```
+
+Download Gemma:
+
+```bash
+ollama pull gemma3:4b
+```
+
+Run the Gemma proof of concept:
+
+```bash
+python scripts/gemma_poc.py
+```
+
+Start the backend:
+
+```bash
+make backend
+```
+
+The FastAPI backend runs at `http://localhost:8000`.
+
+In a separate terminal, start the frontend:
+
+```bash
+make frontend
+```
+
+The Vite frontend runs at `http://localhost:5173` and proxies API requests to the backend.
+
+Run the tests:
+
+```bash
+make test
+```
+
+### Running Without Ollama
+
+Set the environment variable `KHOJ_LLM_MODE=off` to disable local model integration. Khoj can then use curated missions and fallback behavior from the city pack.
+
+## Technical Architecture
+
+| Component | Technology | Responsibility |
+|---|---|---|
+| Frontend | React, Vite, Tailwind CSS | Exploration interface and user experience |
+| Backend | Python, FastAPI | API endpoints and mission workflows |
+| Storage | SQLite and browser storage | Session data and locally saved observations |
+| AI | Gemma 3 via Ollama | Optional local AI-assisted generation |
+| Offline support | Service worker, local storage, IndexedDB | Cached assets, session persistence, and local observations |
+| Deployment | Docker, Render | Hosted application |
+
+### Project Structure
+
+```text
+Khoj/
+├── backend/          # FastAPI backend
+├── frontend/         # React application
+│   ├── public/       # Static assets and service worker
+│   └── src/          # UI, local storage, and offline logic
+├── data/
+│   └── cities/       # City packs and factual data
+├── docs/             # Architecture and design documents
+├── scripts/          # AI proof-of-concept scripts
+├── tests/            # Automated tests
+├── Dockerfile
+├── render.yaml
+├── Makefile
+└── README.md
+```
+
+City packs are plain JSON, making it possible for contributors to add cities and improve existing data.
+
+For additional details, see:
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Specification](docs/SPEC.md)
+- [Technical Decisions](docs/DECISIONS.md)
+- [Contributing Guide](CONTRIBUTING.md)
+
+## API Reference
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/health` | Check server and model status |
+| `GET` | `/api/cities` | List available city packs |
+| `GET` | `/api/city-pack/{city}` | Retrieve a city's exploration data |
+| `POST` | `/api/mission` | Create an exploration session and mission |
+| `POST` | `/api/observation` | Submit an observation and optional question |
+| `POST` | `/api/reflection` | Finish a session and generate a journal |
+
+## Current Limitations
+
+- Mumbai facts are seed data marked `verified: false`; coordinates are approximate.
+- The hosted Render deployment does not run Ollama or host a Gemma model.
+- Running Gemma directly on an end user's device from the browser has not been validated.
+- Offline functionality depends on previously cached assets and city data.
+- Network-dependent features are not guaranteed to work offline.
+- Dedicated map and voice features are not implemented.
+
+## Contributing
+
+Contributions are welcome! You can help by:
+
+- Adding a city pack.
+- Improving factual accuracy and sourcing.
+- Fixing bugs or improving offline behavior.
+- Improving accessibility and the user experience.
+- Adding automated tests and documentation.
+
+Please read the [Contributing Guide](CONTRIBUTING.md) before submitting changes.
+
+## License
+
+Khoj is released under the [MIT License](LICENSE).
+
+*Built with curiosity, for curious explorers.*
